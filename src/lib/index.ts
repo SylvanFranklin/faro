@@ -65,13 +65,13 @@ export const card_vals: Card[] = [
   "4",
   "5",
   "6",
+  "7",
   "8",
   "9",
   "10",
   "jack",
   "queen",
   "king",
-  "7",
 ];
 
 export function get_other_players(player: RussianFigure, num = 3) {

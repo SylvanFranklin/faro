@@ -6,8 +6,10 @@
     player_to_color,
     Cards,
     place_bet,
+    sleep,
   } from "$lib";
   import Keypad from "./keypad.svelte";
+  import Token from "./token.svelte";
   // import Keypad from "./keypad.svelte";
 
   export let player: RussianFigure = {
@@ -19,7 +21,7 @@
   };
 
   const players = [player, ...get_other_players(player)];
-  const game_state = {
+  let game_state = {
     keypad_open: false,
     active_player: 0,
     current_bet_amount: 0,
@@ -47,20 +49,25 @@
     game_state.keypad_open = true;
   }
 
-  $: if (game_state.current_bet_amount > 0) {
-    console.log("test")
+  $: if (game_state.current_bet_amount > 0 && game_state.active_player == 0) {
     bet();
     reset_state();
-    game_state.active_player++;
-  }
-
-  $: if (game_state.active_player == 1) {
     OtherBets();
   }
 
-  function OtherBets() {
-    const amount = 20;
-    game_state.current_bet_amount = amount;
+  async function OtherBets() {
+    for (let i = 1; i < 4; i++) {
+      await sleep(400).then(() => {
+        const amount = 20;
+        game_state.active_player = i;
+        game_state.current_bet_location = Math.floor(
+          Math.random() * cards.length
+        );
+        game_state.current_bet_amount = amount;
+        bet();
+        reset_state();
+      });
+    }
   }
 
   const setter = (a: number) => {
@@ -74,10 +81,10 @@
     <Keypad {setter} character={player} />
   {/if}
   <section
-    class="flex flex-row items-center justify-center border-8 border-slate-200 rounded-lg mt-8 bg-slate-600 shadow-lg"
+    class="flex flex-row items-center justify-center border-8 border-slate-200 rounded-lg mt-8 bg-slate-600 shadow-lg overflow-clip"
   >
-    <div class="grid grid-cols-6 grid-rows-2">
-      {#each cards.slice(0, -1) as card, i}
+    <div class="grid grid-cols-7 grid-rows-2">
+      {#each cards as card, i}
         <div class={`w-min h-min flex items-center justify-center`}>
           <button on:click={() => PlayerBet(i)} class="">
             <svg
@@ -94,34 +101,14 @@
           </button>
           {#each card.bets as bet}
             {#if bet.amount > 0}
-              <div
-                class={`z-30 ${player_to_color(
-                  bet.owner
-                )} relative inset-0 rounded-full text-white font-bold shadow-md w-10 aspect-square h-10 flex item-center justify-center -ml-20`}
-              >
-                {bet.amount}
+              <div class="w-max h-max absolute top-1/2 transform -translate-y-1/2">
+                <Token {bet} />
               </div>
             {/if}
           {/each}
         </div>
       {/each}
     </div>
-    <!-- seven card -->
-    <button>
-      <svg
-        width="169.075"
-        height="244.640"
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        class="scale-[.60] shadow-lg hover:scale-[.62] duration-100 -m-4"
-      >
-        <use
-          href={`node_modules/svg-cards/svg-cards.svg#diamond_${
-            cards[cards.length - 1]
-          }`}
-        />
-      </svg>
-    </button>
   </section>
   <div class="grid grid-flow-row grid-cols-6 gap-2 mt-4">
     {#each players as player, i}
