@@ -101,18 +101,12 @@
               />
             </svg>
           </button>
-          {#each card.bets as bet}
-            {#if bet.amount > 0}
-              <div class="absolute">
-                <Token {bet} />
-              </div>
-            {/if}
-          {/each}
+          <Token bets={card.bets} />
         </div>
       {/each}
     </div>
   </section>
-  <div class="grid grid-flow-row grid-cols-6 gap-2 mt-4">
+  <div class="grid grid-flow-row grid-cols-6 gap-2 mt-4 lg:scale-50">
     {#each players as player, i}
       <div class="flex flex-col items-center">
         <div class="flex rounded-t-3xl overflow-clip w-30 h-full">
