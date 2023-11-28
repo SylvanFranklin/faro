@@ -25,12 +25,13 @@
     keypad_open: false,
     active_player: 0,
     current_bet_amount: 0,
-    current_bet_location: 0,
+    current_bet_location: -1,
   };
   let cards = structuredClone(Cards);
 
   function reset_state() {
     game_state.current_bet_amount = 0;
+    game_state.current_bet_location = -1;
   }
 
   function bet() {
@@ -58,14 +59,15 @@
   async function OtherBets() {
     for (let i = 1; i < 4; i++) {
       await sleep(400).then(() => {
-        const amount = 20;
+        reset_state();
         game_state.active_player = i;
+        const amount = Math.floor(Math.random() * 100);
         game_state.current_bet_location = Math.floor(
           Math.random() * cards.length
         );
         game_state.current_bet_amount = amount;
+        console.log(i, game_state.current_bet_location);
         bet();
-        reset_state();
       });
     }
   }
@@ -101,7 +103,7 @@
           </button>
           {#each card.bets as bet}
             {#if bet.amount > 0}
-              <div class="w-max h-max absolute top-1/2 transform -translate-y-1/2">
+              <div class="absolute">
                 <Token {bet} />
               </div>
             {/if}
