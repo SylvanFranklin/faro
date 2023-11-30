@@ -19,7 +19,7 @@
   };
 </script>
 
-<div class="flex flex-col gap-6 mt-8 items-center">
+<div class="flex flex-col gap-6 mt-8 items-center h-full">
   <button
     on:click={() => dismiss_menu()}
     class="text-white text-xl font-bold bg-blue-500 py-3 px-24 rounded-lg shadow-md hover:scale-95 duration-100 w-1/3"

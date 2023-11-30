@@ -27,7 +27,7 @@
   };
 </script>
 
-<div class="w-screen h-screen">
+<div class="w-screen h-max">
   {#if currentStage != 0}
     <button
       on:click={() => home()}

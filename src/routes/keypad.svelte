@@ -31,9 +31,10 @@
 </script>
 
 <main
-  class="absolute w-screen h-screen inset-0 z-40 bg-gray-400/80 flex flex-col items-center pt-40"
+  class="fixed w-full h-full inset-0 z-40 bg-gray-400/60 flex flex-col items-center pt-40 overflow-hidden backdrop-blur-sm backdrop-filter"
 >
-  <div class="flex w-1/3 mx-auto items-center flex-col gap-2">
+  <h1 class="text-5xl font-mono font-extrabold">PLACE BET</h1>
+  <div class="flex h-1/3 w-1/3 mx-auto items-center flex-col gap-2 my-auto">
     <div
       class="w-full bg-white rounded-lg h-16 text-4xl resize-none outline-none py-3 px-2 text-left overflow-x-scroll"
     >
@@ -58,7 +59,7 @@
       {#each keys as key}
         <button
           on:click={() => update(key.toString())}
-          class="text-white px-10 py-7 bg-blue-500 shadow-lg rounded-md font-bold hover:scale-95 duration-200"
+          class="text-white aspect-square h-16 bg-slate-500 shadow-lg rounded-md font-bold hover:scale-95 duration-200"
         >
           {key}
         </button>

@@ -125,7 +125,7 @@ export function player_to_color(player: number) {
     case 2:
       return "bg-orange-400";
     case 3:
-      return "bg-blue-500";
+      return "bg-slate-500";
     default:
       return "bg-green-600";
   }

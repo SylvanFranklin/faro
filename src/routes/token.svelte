@@ -7,8 +7,8 @@
 
 <span class="absolute flex items-center justify-center">
   <ul
-    class={`grid  gap-0 ${
-      bets_length > 1 && "grid-rows-2 grid-cols-2 scale-[.75]"
+    class={`grid gap-0 ${
+      bets_length > 1 && "scale-[.75] grid-rows-2 grid-cols-2"
     }`}
   >
     {#each bets as bet}

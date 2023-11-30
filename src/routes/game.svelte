@@ -78,7 +78,7 @@
   };
 </script>
 
-<main class="w-3/4 mx-auto flex-col">
+<main class="w-3/4 mx-auto flex-col h-full">
   {#if game_state.keypad_open}
     <Keypad {setter} character={player} />
   {/if}
